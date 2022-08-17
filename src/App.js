@@ -29,8 +29,9 @@ export default function App() {
   return (
     <div>
       <h1>Hello StackBlitz!</h1>
-      <input ref={r1} />
-      <input ref={r2} />
+      <input placeholder="number" min={1} max={10000} type="number" ref={r1} />
+      <input placeholder="number" min={1} max={10000} type="number" ref={r2} />
+
       <button onClick={hc1}>+</button>
       <button onClick={hc2}>-</button>
       <button onClick={hc3}>*</button>
