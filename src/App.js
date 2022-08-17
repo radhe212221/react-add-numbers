@@ -2,41 +2,77 @@ import React, { useState, useRef } from 'react';
 import './style.css';
 
 export default function App() {
-  const [sum, setsum] = useState(0);
-  const r1 = useRef();
-  const r2 = useRef();
-  const hc1 = () => {
-    const x = +r1.current.value;
-    const y = +r2.current.value;
-    setsum(x + y);
+  const [key, setkey] = useState('');
+  const a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+  const op = ['+', '-', '*', '/', '%', '='];
+  const ref = useRef();
+  const hc1 = (e) => {
+    const text = e.target.innerHTML.trim();
+    if (text === 'Delete') {
+      ref.current.value = '';
+    } else {
+      if (text === '=') {
+        try {
+          ref.current.value = eval(ref.current.value);
+        } catch (e) {
+          ref.current.value = 'invalid';
+        }
+      } else {
+        ref.current.value += text;
+      }
+    }
   };
-  const hc2 = () => {
-    const x = +r1.current.value;
-    const y = +r2.current.value;
-    setsum(x - y);
+  const hc2 = (e) => {
+    const text = e;
+    if (text === 'Delete') {
+      ref.current.value = '';
+    } else {
+      if (text === '=') {
+        try {
+          ref.current.value = eval(ref.current.value);
+        } catch (e) {
+          ref.current.value = 'invalid';
+        }
+      } else {
+        ref.current.value += text;
+      }
+    }
   };
-  const hc3 = () => {
-    const x = +r1.current.value;
-    const y = +r2.current.value;
-    setsum(x * y);
+
+  const p1 = (e) => {
+    // console.log(e.key);
+    setkey(e.key);
+    if ([...a, ...op, 'Delete'].includes(e.key)) {
+      hc2(e.key);
+    }
   };
-  const hc4 = () => {
-    const x = +r1.current.value;
-    const y = +r2.current.value;
-    setsum(x / y);
+
+  const boot = () => {
+    window.addEventListener('keyup', p1);
   };
+  React.useEffect(boot, []);
 
   return (
     <div>
-      <h1>Hello StackBlitz!</h1>
-      <input placeholder="number" min={1} max={10000} type="number" ref={r1} />
-      <input placeholder="number" min={1} max={10000} type="number" ref={r2} />
-
-      <button onClick={hc1}>+</button>
-      <button onClick={hc2}>-</button>
-      <button onClick={hc3}>*</button>
-      <button onClick={hc4}>/</button>
-      <h2>result: {sum}</h2>
+      <h1>calculator</h1>
+      <div className="top">
+        <input ref={ref} readOnly placeholder="result" type="text" />
+        <button className={key === 'Delete' ? 'a' : ''} onClick={hc1}>
+          Delete
+        </button>
+      </div>
+      <div className="calc">
+        {a.map((x) => (
+          <button className={key === x ? 'a' : ''} onClick={hc1}>
+            {x}
+          </button>
+        ))}
+        {op.map((x) => (
+          <button className={key === x ? 'a' : ''} onClick={hc1}>
+            {x}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
