@@ -3,7 +3,7 @@ import './style.css';
 
 export default function App() {
   const [key, setkey] = useState('');
-  const a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+  const a = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
   const op = ['+', '-', '*', '/', '%', '='];
   const ref = useRef();
   const hc1 = (e) => {
@@ -41,8 +41,8 @@ export default function App() {
 
   const p1 = (e) => {
     // console.log(e.key);
-    setkey(e.key);
     if ([...a, ...op, 'Delete'].includes(e.key)) {
+      setkey(e.key);
       hc2(e.key);
     }
   };
