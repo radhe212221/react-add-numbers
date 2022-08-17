@@ -16,7 +16,7 @@ export default function App() {
         try {
           ref.current.value = eval(ref.current.value);
         } catch (e) {
-          ref.current.value = 'invalid';
+          ref.current.value = '0';
         }
       } else {
         ref.current.value += text;
@@ -32,7 +32,7 @@ export default function App() {
         try {
           ref.current.value = eval(ref.current.value);
         } catch (e) {
-          ref.current.value = 'invalid';
+          ref.current.value = '0';
         }
       } else {
         ref.current.value += text;
@@ -48,7 +48,11 @@ export default function App() {
     }
   };
   const hc3 = (e) => {
-    ref.current.value = eval(e);
+    try {
+      ref.current.value = eval(e);
+    } catch (err) {
+      ref.current.value = '0';
+    }
   };
 
   const boot = () => {
