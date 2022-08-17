@@ -4,7 +4,8 @@ import './style.css';
 export default function App() {
   const [key, setkey] = useState('');
   const a = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-  const op = ['+', '-', '*', '/', '%', '='];
+  const op = ['+', '-', '*', '/', '=', ','];
+  const maths = ['sqrt', 'square', 'sin', 'cos', 'random', 'min', 'max', 'tan'];
   const ref = useRef();
   const hc1 = (e) => {
     const text = e.target.innerHTML.trim();
@@ -46,6 +47,9 @@ export default function App() {
       hc2(e.key);
     }
   };
+  const hc3 = (e) => {
+    ref.current.value = eval(e);
+  };
 
   const boot = () => {
     window.addEventListener('keyup', p1);
@@ -69,6 +73,14 @@ export default function App() {
         ))}
         {op.map((x) => (
           <button className={key === x ? 'a' : ''} onClick={hc1}>
+            {x}
+          </button>
+        ))}
+        {maths.map((x) => (
+          <button
+            className={key === x ? 'a' : ''}
+            onClick={() => hc3(`Math.${x}(${ref?.current?.value})`)}
+          >
             {x}
           </button>
         ))}
